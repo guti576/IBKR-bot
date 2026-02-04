@@ -1,21 +1,29 @@
 from config.settings import *
 from models.train import *
-from trading.orders import *
 from models.predict import *
+from trading.orders import *
+import time
 
 
-model = load_model("C:/Users/krist/OneDrive/Escritorio/IBKR bot/models/xgb_model_ibkr.pkl")
+model = load_model("C:/Users/krist/OneDrive/Escritorio/IBKR bot/models/pickels/xgb_model_ibkr_15m_2h.pkl")
 
-# Get latest data
-last_bars = getBars()
-X_latest = createFeatures(last_bars).iloc[-1:]
-price = X_latest['close']
-log("Latest bar:{} at price {}".format(X_latest.index, price))
+while True:
+    # Close open positions
+    close_all_positions()
 
-# Calculate signal {BUY, NO BUY}
-signal = create_signal(X_latest)
+    # Get latest data
+    last_bars = getBars()
+    X_latest = createFeatures(last_bars).iloc[-1:]
+    price = X_latest['close']
+    log("Latest bar:{} at price {}".format(X_latest.index, price))
 
-if signal == 1:
-    log("BUY")
-else:
-    log("No Buy")
+    # Calculate signal {BUY, NO BUY}
+    signal = create_signal(X_latest, model)
+
+    if signal == 1:
+        log("BUY")
+        #place_buy_order()
+    else:
+        log("No Buy")
+
+    time.sleep(CHECK_INTERVAL_MINUTES * 60)

@@ -16,10 +16,10 @@ whatToShow = 'TRADES'
 useRTH = True
 
 # Target
-TARGET_IN_BARS_AHEAD = 4
+TARGET_IN_BARS_AHEAD = 10
 
 # Inference
-PROB_THR = 0.50
+PROB_THR = 0.60
 CHECK_INTERVAL_MINUTES = 61 # Cada cuanto corre el bucle en minutos
 STOP_LOSS_PCT = 0.98  # Stop-loss al 2% por debajo del precio de compra
 

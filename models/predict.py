@@ -1,7 +1,7 @@
 import joblib
 from config.settings import *
 
-def load_model(path="C:/Users/krist/OneDrive/Escritorio/IBKR bot/models/xgb_model_ibkr.pkl"):
+def load_model(path):
     # Cargar modelo
     model = joblib.load(path)
     print("Modelo cargado correctamente")
@@ -9,7 +9,7 @@ def load_model(path="C:/Users/krist/OneDrive/Escritorio/IBKR bot/models/xgb_mode
     return model
 
 
-def create_signal(X_latest):
+def create_signal(X_latest, model):
     '''
     Define the signal to buy/sell according to strategy. Pass latest data (X) available
 
@@ -17,8 +17,6 @@ def create_signal(X_latest):
     2: SELL
     0: None
     '''
-
-    model = load_model("C:/Users/krist/OneDrive/Escritorio/IBKR bot/models/xgb_model_ibkr.pkl")
 
     # Predict
     proba = model.predict_proba(X_latest)[0][1]    
