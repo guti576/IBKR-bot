@@ -5,8 +5,8 @@ from ib_insync import *
 import xgboost as xgb
 
 # Define el contrato de la acción
-symbol = 'GOOG'
-contract = Stock(symbol, 'SMART', 'USD')
+#symbol = 'GOOG'
+#contract = Stock(symbol, 'SMART', 'USD')
 
 # Definir fechas para los datos
 endDateTime = datetime.datetime.now().strftime("%Y%m%d %H:%M:%S")

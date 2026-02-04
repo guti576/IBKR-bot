@@ -1,7 +1,9 @@
 from config.settings import *
 
-def getBars():
-
+def getBars(contract):
+    '''
+    Docstring for getBars
+    '''
     # Descargar barras históricas
     bars = ib.reqHistoricalData(
         contract,
@@ -34,6 +36,7 @@ def getBars():
     df.sort_index(inplace=True)
     
     return df
+
 
 def createFeatures(data):
 

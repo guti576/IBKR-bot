@@ -4,26 +4,23 @@ from models.predict import *
 from trading.orders import *
 import time
 
+liquid_nasdaq_symbols = [
+    "MSFT",  # Microsoft
+    "AAPL",  # Apple
+    "NVDA",  # NVIDIA
+    "AMZN",  # Amazon
+    "GOOGL", # Alphabet Class A
+    "META"  # Meta Platforms
+]
 
-model = load_model("C:/Users/krist/OneDrive/Escritorio/IBKR bot/models/pickels/xgb_model_ibkr_15m_2h.pkl")
+for symbol in liquid_nasdaq_symbols:
 
-while True:
-    # Close open positions
-    close_all_positions()
+    # Define el contrato de la acción
+    contract = Stock(symbol, 'SMART', 'USD')
 
-    # Get latest data
-    last_bars = getBars()
-    X_latest = createFeatures(last_bars).iloc[-1:]
-    price = X_latest['close']
-    log("Latest bar:{} at price {}".format(X_latest.index, price))
+    print(symbol)
+    model = train_xgb_model(contract)
 
-    # Calculate signal {BUY, NO BUY}
-    signal = create_signal(X_latest, model)
+    path = "C:/Users/krist/OneDrive/Escritorio/IBKR bot/models/pickels/{}_xgb_model_ibkr_15m_2h.pkl".format(symbol)
+    save_model(model, path)
 
-    if signal == 1:
-        log("BUY")
-        #place_buy_order()
-    else:
-        log("No Buy")
-
-    time.sleep(CHECK_INTERVAL_MINUTES * 60)

@@ -6,10 +6,10 @@ from sklearn.metrics import accuracy_score
 import joblib
 
 
-def train_xgb_model():
+def train_xgb_model(contract):
     
     # Training
-    df_raw = getBars()
+    df_raw = getBars(contract)
     df = createFeatures(df_raw)
         
     # Target: 1 si sube dentro de 12 barras, 0 si no
@@ -60,6 +60,6 @@ def train_xgb_model():
     return model
 
 
-def save_model(model, path = "C:/Users/krist/OneDrive/Escritorio/IBKR bot/models/xgb_model_ibkr.pkl"):
+def save_model(model, path):
     joblib.dump(model, path)
     print("Modelo guardado en:", path)
