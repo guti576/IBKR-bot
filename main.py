@@ -35,7 +35,7 @@ for symbol in cheap_liquid_nasdaq:
         #model = train_xgb_model(contract)
 
         # Save model
-        path = "C:/Users/krist/OneDrive/Escritorio/IBKR bot/models/pickels/cheap/{}_xgb_model_ibkr_15m_2h.pkl".format(symbol)
+        path = "./models/pickels/cheap/{}_xgb_model_ibkr_15m_2h.pkl".format(symbol)
         #save_model(model, path)
     except:
         log("Error en el entrenamiento de:", symbol)
@@ -56,7 +56,7 @@ while True:
         close_all_positions(symbol)
 
         # Load model
-        path = "C:/Users/krist/OneDrive/Escritorio/IBKR bot/models/pickels/cheap/{}_xgb_model_ibkr_15m_2h.pkl".format(symbol)
+        path = "./models/pickels/cheap/{}_xgb_model_ibkr_15m_2h.pkl".format(symbol)
         model = load_model(path)
 
         # Get latest data
