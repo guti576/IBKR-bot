@@ -4,7 +4,7 @@ from config.settings import *
 def load_model(path):
     # Cargar modelo
     model = joblib.load(path)
-    print("Modelo cargado correctamente")
+    log("Modelo cargado correctamente")
 
     return model
 

@@ -4,6 +4,8 @@ def getBars(contract):
     '''
     Docstring for getBars
     '''
+
+    log("Obteniendo datos")
     # Descargar barras históricas
     bars = ib.reqHistoricalData(
         contract,
@@ -40,6 +42,7 @@ def getBars(contract):
 
 def createFeatures(data):
 
+    log("Creando variables")
     df = data.copy()
     df.sort_index(inplace=True)
 

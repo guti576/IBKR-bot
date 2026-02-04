@@ -1,6 +1,6 @@
 from config.settings import *
 
-def place_buy_order(qty=1, stop_pct=0.02):
+def place_buy_order(contract, qty=1, stop_pct=0.02):
 
     order = MarketOrder('BUY', qty)
     trade = ib.placeOrder(contract, order)
@@ -22,18 +22,17 @@ def place_buy_order(qty=1, stop_pct=0.02):
 
     return trade
 
-def place_sell_order(qty=1):
+def place_sell_order(contract, qty=1):
     # Orden de venta
     order = MarketOrder('SELL', qty)
     trade = ib.placeOrder(contract, order)
     log(f"Orden de venta enviada: {trade}")
 
 
-def has_open_position():
+def has_open_position(contract):
     """
     Devuelve True si hay alguna posición abierta en el símbolo indicado, False si no.
     """
-    contract = Stock(symbol, 'SMART', 'USD')
     ib.qualifyContracts(contract)
     
     positions = ib.positions()  # lista de todas las posiciones abiertas
@@ -43,7 +42,7 @@ def has_open_position():
     return False
 
 
-def close_all_positions():
+def close_all_positions(symbol):
     """
     Cierra todas las posiciones abiertas del símbolo indicado.
     
@@ -61,7 +60,7 @@ def close_all_positions():
     positions = [p for p in ib.positions() if p.contract.symbol == symbol]
 
     if not positions:
-        print(f"No hay posiciones abiertas de {symbol}")
+        log(f"No hay posiciones abiertas de {symbol}")
         return summary
 
     for pos in positions:
