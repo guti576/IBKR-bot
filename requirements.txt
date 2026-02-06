@@ -7,4 +7,5 @@ matplotlib>=3.7
 joblib
 python-dotenv
 plotly
-tz
+tzdata
+nbformat>=4.2.0
